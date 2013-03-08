@@ -1,0 +1,1307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- TEP DECLARATIONS:
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:edxl-ct="urn:oasis:names:tc:emergency:edxl:ct:1.0" 
+	xmlns:xal="urn:oasis:names:tc:emergency:edxl:ciq:1.0:xal" 
+	xmlns:tep="urn:oasis:names:tc:emergency:EDXL:TEP:1.0" 
+	targetNamespace="urn:oasis:names:tc:emergency:EDXL:TEP:1.0" 
+	elementFormDefault="qualified">
+	<xs:import namespace="urn:oasis:names:tc:emergency:edxl:ct:1.0" schemaLocation="./edxl-ct-v1.0-wd05.xsd"/>
+	<xs:import namespace="urn:oasis:names:tc:emergency:edxl:ct:1.0" schemaLocation="./EDXL-TEPDefaults-v1.0.xsd"/>
+	<xs:import namespace="urn:oasis:names:tc:emergency:edxl:ciq:1.0:xal" schemaLocation="./edxl_xAL.xsd"/>
+
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:edxl-ct="urn:oasis:names:tc:emergency:edxl:ct:1.0"
+	xmlns:edxl-gsf="urn:oasis:names:tc:emergency:edxl:gsf:1.0"
+	xmlns:have="urn:oasis:names:tc:emergency:edxl:have:2.0"
+	xmlns="urn:oasis:names:tc:emergency:edxl:have:2.0"
+	xmlns:xpil="urn:oasis:names:tc:emergency:edxl:ciq:1.0:xpil"
+	targetNamespace="urn:oasis:names:tc:emergency:edxl:have:2.0" elementFormDefault="qualified"
+	attributeFormDefault="qualified">
+	<!--removed the following namespace declarations; delete or restore as necessary when/if used in this schema: -->
+	<!--xmlns:xal="urn:oasis:names:tc:emergency:edxl:ciq:1.0:xal" -->
+	<!--xmlns:xnl="urn:oasis:names:tc:emergency:edxl:ciq:1.0:xnl" -->
+	<!--xmlns:ns1="urn:oasis:names:tc:emergency:EDXL:HAVE:1.0:geo-oasis"(LEL replaced by ref to ct and edxl-gsf) -->
+	<!--xmlns:xnal="urn:oasis:names:tc:ciq:xnal:3" (LEL removed - redundant with xnl+xal)-->
+	<xs:import namespace="urn:oasis:names:tc:emergency:edxl:gsf:1.0"
+		schemaLocation="edxl-gsf.v1.0.xsd"/>
+
+	<xs:import namespace="urn:oasis:names:tc:emergency:edxl:ciq:1.0:xpil"
+		schemaLocation="edxl_xPIL.xsd"/>
+	<!-- TODO - (NOTE from Darrell) We need to rationalize the DEFAULTS (now located in this file) and ct: namespace usage. - for expediency I have removed
+		it by copying (yes - a cardinal sin) the DEFAULTS into this schema document. Without 
+		it we had two namespaces referring to ct:, which made creating valid XML samples very, very onerous. We need someone
+		(not me - Darrell) to go through the schema and validate that we can have these two XSDs referring to the same thing.
+	-->
+	<!-- DEO - removed to deal with incompatibiliyt of ct:ValueKeyType structure into this schema documen.... and non (HAVE Default) ct: namespace need
+	<xs:import namespace="urn:oasis:names:tc:emergency:edxl:ct:1.0"
+		schemaLocation="./edxl-ct-v1.0-wd05.xsd"/>
+	<xs:import namespace="urn:oasis:names:tc:emergency:edxl:ct:1.0"
+		schemaLocation="edxl-ct-v1.0-wd05.xsd"/>	
+-->
+	<xs:import namespace="urn:oasis:names:tc:emergency:edxl:ct:1.0"
+		schemaLocation="edxl-ct-v1.0-wd05.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Specification Name: EDXL Hospital AVailability Exchange (HAVE) 2.0
+			Description: Defines the XML schema for the EDXL HAVE message exchange Produced by:
+			Emergency Management HAVE Subcommittee URL: http://docs.oasis-open.org Version: 2.1
+			Status: SC DRAFT Copyright: 2012, OASIS, http://www.oasis-open.org Last Modified: 7 Feb
+			2012 Last Modified by: Lew Leinenweber - SE Solutions, Inc </xs:documentation>
+		<xs:documentation> Added 01MAY2012 Guiding Concepts/Principles: Schema Validation: should
+			provide deep validation capabilities as opposed to being a basic schema where different
+			groups make up extensions to the point where nothing is valid in between systems.
+			Extensible: Key areas of the schema should support extensibility in a controlled manner.
+			The use of managed taxonomies can allow a group to define a new set of services that are
+			used in a network for example. Simple: Though the standard could support aggregation the
+			provision of individual facility elements REVIEW: new elements ID and IDREF: References
+			(IDREF) to unique elements (ID) should be used, especially where establishing of a
+			hierarchy. DARRELL: Please note that I threw this one in after our last conversation. I
+			don't know if you guys agree on this and I am fine if it isn't applied, but we need some
+			way to uniquely identify the Facilities, Organizations, and Health Networks.
+		</xs:documentation>
+	</xs:annotation>
+	<!--                                                                         -->
+	<!-- ************ Element Defintions ************* -->
+	<!--                                                                         -->
+	<xs:element name="HAVE">
+		<xs:annotation>
+			<xs:documentation>DARRELL: RENAMED (well, created and moved 1:n Facility under it.) This
+				would be the top-level item. A Health Network would have 1…n Organization elements
+				representing the various Organizations that are providing capabilities in the
+				network. We'd need Health Network level information here much like the
+				HealthNetworkInformation, HealthNetworkGeoLocation, etc. QUESTION: do we need an
+				HealthNetworkSummary element below it to contain summary level information (e.g.
+				total beds, total service coverage, total admissions/discharges, deaths) or do we
+				recommend that someone needed such a summary do their own aggregation. The harder
+				question is are there truly summary-level items (e.g. status of the overall
+				HealthNetwork) that can't be automatically aggregated? ANSWER: ONLY non-aggregatable
+				values should be here.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="organizationInformation" type="OrganizationInformationType">
+					<xs:annotation>
+						<xs:documentation>Information of the Organization that is responsible for
+							the reporting of these facilities. </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="reportingPeriod" type="edxl-ct:TimePeriodType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>The reporting period applicable for this HAVE report and called the "current reporting periood" typically a 24-hr period but the duration may change for operational reasons. If blank the assumption is that the file is for "today" - local to the issuer.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="reportComment" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Provides context to the HAVE report.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element maxOccurs="unbounded" name="facility" type="FacilityType"> </xs:element>
+				<xs:element name="OVERALL_ISSUES" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="language">
+								<xs:annotation>
+									<xs:documentation>How can we handle multi-lingual messages? How can we specify the language of a single item?</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="defaultLanguage" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>is the use of an attribute forbidden in EDXL? There will be alot of duplication otherwise.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="BedCapacityType">
+		<xs:annotation>
+			<xs:documentation>Top level complex schema type defining bed capacity counts
+				(available/baseline) given a specific type of bed.</xs:documentation>
+			<xs:documentation>CONFIRM: confirm changes and remove the TO_BE_DELETED
+				items.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="availableCount" minOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The number of vacant/available beds to which patients can be immediately supported. These must include supporting space, equipment, medical material, ancillary and support services and staff to operate under normal circumstances. These beds are licensed, physically available and have staff on hand to attend to the patient who occupies the bed. NEGATIVE values means the service is operating beyond normal capacity.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:integer"> </xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="baselineCount" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The maximum (baseline) number of beds in this
+						category.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element minOccurs="0" name="capacityNote" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Human-readable description of the service capacity for this
+						service. This value can be used to explain any specific information for the
+						reader about the Bed Capacity.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="availability">
+				<xs:annotation>
+					<xs:documentation>The availability of the service.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="Open">
+							<xs:annotation>
+								<xs:documentation>Service is fully available.</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="Full">
+							<xs:annotation>
+								<xs:documentation>Service is at capacity.</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="Exceeded"/>
+						<xs:enumeration value="Inactive"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="TO_BE_DELETED" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>CONFIRM: HAVE SC to confirm deletion.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:all>
+						<xs:element name="capacityStatus" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Indicator of status of bed type or sub-category
+									bed type. TODO: RAtionalize this - delete? </xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:enumeration value="Available"/>
+									<xs:enumeration value="NotAvailable"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+					</xs:all>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FacilityType">
+		<xs:sequence>
+			<xs:element name="facilityInformation" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The container element for reporting all information on a
+						Health Facility. </xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="facilityID" type="xs:ID">
+							<xs:annotation>
+								<xs:documentation>ID for easy reference and for establishment of
+									Facility hierarchy if/when used with ParentID. DECISION: Decide
+									on xs:string or xs:ID - either way this value really needs to be
+									unique in the XML file so relationships can be
+									established.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="parentFacility" maxOccurs="1" type="xs:IDREF"
+							minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>DECISION (string or xs:IDREF)Unique Identifier of
+									the Parent Facility - xs:string or xs:IDREF to line up with
+									FacilityID element type</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="facilityName" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>Name of facility.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="facilityGeoLocation" type="edxl-ct:EDXLLocationType"
+							minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The location of the facility. NOTE: Changed from
+									OrganizationGeoLocation.</xs:documentation>
+								<xs:documentation>DECISION (on wording): All GML coordinates will be assumed to be in WGS84 (EPSG:4326 - http://spatialreference.org/ref/epsg/4326/). The EDXL HAVE Sub-Committee strongly recommends providing a WGS84 coordinate as many recipients may not be able to handle multiple coordinate systems. 
+
+Adoption Note: WGS84 point values use the form "lat long" or "y x" contrary to other nomenclatures that show x first.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="facilityDetails" type="OrganizationInformationType"/>
+						<xs:element name="facilityKind" maxOccurs="1" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The container element for reporting type of Health
+									Facility. TODO (DARRELL): Change to edxl-ct:ValueListType or default
+									list. </xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:enumeration value="Hospital"/>
+									<xs:enumeration value="LongTermCare"/>
+									<xs:enumeration value="TemporaryFacility"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="facilityProfile" maxOccurs="1" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The container element for reporting the profile of
+									a Health Facility. QUESTION: There is no TYPE associated. What
+									should this be? Is this item a leftover from HAVE1.0 or a
+									transposition error when the schema was migrated (continuity of
+									effort has been lost on this one).</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:choice minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The clinical status of the facility. Choice of HAVE 2.0 Default (clinicalStatusDefault) or custom list (clinicalStatus).</xs:documentation>
+							</xs:annotation>
+							<xs:element name="clinicalStatusDefault"
+								type="ClinicalStatusDefaultType"/>
+							<xs:element name="clinicalStatus" type="edxl-ct:ValueListType"/>
+						</xs:choice>
+						<xs:element name="emergencyDepartmentStatus"
+							type="EmergencyDepartmentStatusType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Report on the emergency department status for the
+									organization.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="emergencyOperations" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>DARRELL - EARLY CONCEPT - this element attempts to
+									capture two items that weren't carried over from HAVE v1.0 -
+									HospitalEOCPlan and HospitalEOCStatus. I put these as
+									FacilityInformation sub-elements as that feels like the best
+									place for them - they are facility-dependent and don't really
+									fall under another item though some may argue they fall under
+									Security, which isn't correct IMHO. I haven't rationalized the
+									sub-element types or created a EmergencyOperationsType or
+									anything yet - just getting the concept out.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="eocPlan"/>
+									<xs:element name="eocStatus"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element minOccurs="0" name="helipad" type="xs:boolean">
+							<xs:annotation>
+								<xs:documentation>Indication that facility has helipad facilities.
+
+RESOLVED: Do we just need a boolean here, or should be expand this and add a bit more information about the helipad? Changed from xs:string to xs:boolean.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="OBSOLETE_securityStatus"
+							type="OBSOLETE_SecurityStatusType" maxOccurs="1" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The container element for reporting status of a
+									Health Facility. </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="OBSOLETE_facilityStatus"
+							type="OBSOLETE_FacilityStatusType" maxOccurs="1" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>CONFIRM REMOVAL of obsolete item.
+
+The container element for reporting status of a
+									Health Facility. </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="reportingPeriod" type="edxl-ct:TimePeriodType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The reporting period applicable for this Facility element and
+						called the "current reporting periood" typically a 24-hr period but the
+						duration may change for operational reasons. If blank (QUESTION: Should that
+						be allowed) an EFFECTIVE time is required?</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="activityInPeriod">
+				<xs:annotation>
+					<xs:documentation>DARRELL - Activity24hr was missing from HAVE 1.0. The
+						container element for reporting activities in the last 24 hours.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="admissions"/>
+						<xs:element minOccurs="0" name="discharges"/>
+						<xs:element minOccurs="0" name="deaths"/>
+						<xs:element minOccurs="0" name="comment" type="CommentType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="serviceList" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Container element of all the elements of service coverage. This includes both the necessary staff and facilities. Indicator of the availability of specialty service coverage. Multiple ServiceList elements can be used to support multiple taxonomies if needed.</xs:documentation>
+					<xs:documentation>DARRELL - to me this belongs under Facility (child element).
+						The Organization can aggregate for all of their facilities if they need an
+						organization level view.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element default="urn:oasis:edxl:have:2.0:serviceName" name="taxonomyURI">
+							<xs:annotation>
+								<xs:documentation>A URI pointing at the Taxonomy. The URI should
+									resolve to a human-readable listing of the taxonomy values used,
+									including definitions, intent of the taxonomy,
+									etc.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element default="EDXL-HAVE 2.0" name="taxonomyName">
+							<xs:annotation>
+								<xs:documentation>Indicates the human-readable Name of the Taxonomy
+									used for the Services list.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="serviceTaxonomyComment" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>A comment describing the taxonomy that is in use
+									here.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" maxOccurs="1" name="serviceListComment"
+							type="CommentType"/>
+						<xs:element maxOccurs="unbounded" minOccurs="1" name="serviceListItem"
+							type="ServiceListItemType">
+							<xs:annotation>
+								<xs:documentation>ServiceListItem provides a description of a
+									particular service - availability, capacity, and
+									status.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="capacity" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>TODO: Build out a Capacity concept Allowing Default Capacities (Morgue, Decon....???) REFACTOR 
+
+DECISION: Is a "Capacity" (decon, morgue, etc.) any different than a service? does a count concept (patients/day) fit better for some of the services?</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="deconCapacity">
+							<xs:annotation>
+								<xs:documentation>DARRELL - missing from HAVE 1.0 - The status of
+									Decon Capacity</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element minOccurs="0" name="deconCapacityStatus">
+										<xs:annotation>
+											<xs:documentation>The capacity for
+												chemical/biological/radiological patient
+												decontamination.</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="Inactive"/>
+												<xs:enumeration value="Open"/>
+												<xs:enumeration value="Full"/>
+												<xs:enumeration value="Exceeded"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element minOccurs="0" name="ambulatoryPatientsDeconCapacity">
+										<xs:annotation>
+											<xs:documentation>The number of ambulatory patients
+												which can be decontaminated over time (typically an
+												hour). </xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element minOccurs="0"
+										name="nonAmbulatoryPatientsDeconCapacity">
+										<xs:annotation>
+											<xs:documentation>The number of non-ambulatory patients
+												which can be decontaminated over time (typically an
+												hour). </xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element minOccurs="0" name="morgueCapacity">
+							<xs:annotation>
+								<xs:documentation>DARRELL - carried over from HAVE v1.0 The status
+									of the morgue capacity. </xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element minOccurs="0" name="morgueCapacityStatus">
+										<xs:annotation>
+											<xs:documentation>The status of the morgue capacity.
+												NOTE: no Inactive capacity here.</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="Open"/>
+												<xs:enumeration value="Full"/>
+												<xs:enumeration value="Exceeded"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element minOccurs="0" name="morgueCapacityUnits"
+										type="xs:integer">
+										<xs:annotation>
+											<xs:documentation>The number of vacant/available units
+												to which victims can be immediately transported.
+											</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="capacityType">
+							<xs:annotation>
+								<xs:documentation>DARRELL TODO: create generic capacity (e.g.
+									nonAmbulatoryDecon) capacityStates (Inactive, Open, Full,
+									Exceeded) capacityCount (int?) capacityUOM (RIM type for
+									unit-of-measure) capacityComment </xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:choice/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="resources" maxOccurs="1" minOccurs="0" type="ResourceStatusType">
+				<xs:annotation>
+					<xs:documentation>The status of resources for the
+						organization.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="commentText" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element minOccurs="0" name="facilityColourStatus" type="ColourStatusType">
+				<xs:annotation>
+					<xs:documentation>Colour indicating the overall status of the Facility. Information deeper down (in services, operations, resources, or capabilities) may provide more detail.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="securityStatus" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:choice>
+							<xs:element name="securityStatusCodeDefault"
+								type="SecurityStatusCodeDefaultType"/>
+							<xs:element name="securityStatusCode" type="edxl-ct:ValueKeyType"/>
+						</xs:choice>
+						<xs:element name="comment" type="CommentType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="operations">
+				<xs:annotation>
+					<xs:documentation>key operations information
+
+TODO: create general operations (Facility, Clinical)... and add colour codes - are these approximating Services</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="facilityOperationsAdequate"
+							type="xs:boolean">
+							<xs:annotation>
+								<xs:documentation>The status of supplies necessary for facility operations.
+					</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="clinicalOperationsAdequate"
+							type="xs:boolean">
+							<xs:annotation>
+								<xs:documentation>The status of supplies necessary for clinical operations.
+					</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="capabilities" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Specific capabilities of the facility:
+
+helipad, power, HVAC, etc.
+TODO: Build out the data type.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OBSOLETE_FacilityStatusType">
+		<xs:annotation>
+			<xs:documentation>DISCUSS - several oddities with this type: - facility status is wrapped in a facility status? - change the FacilityStatusListExtension or live with it? - CommentText does a 0..n cardinality make sense? - Status element - consider using a defaultType (EDEYOUNG)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="status">
+				<xs:simpleType>
+					<xs:annotation>
+						<xs:documentation>The status of the facility.</xs:documentation>
+					</xs:annotation>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="Normal">
+							<xs:annotation>
+								<xs:documentation>No conditions exist that adversely affect the
+									general operations of the facility.</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="Compromised">
+							<xs:annotation>
+								<xs:documentation>General operations of the facility have been
+									affected due to damage, operating on emergency backup systems,
+									or facility contamination.</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="Evacuating">
+							<xs:annotation>
+								<xs:documentation>Indicates that a hospital is in the process of a
+									partial or full evacuation.</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="Closed">
+							<xs:annotation>
+								<xs:documentation>Indicates that a hospital is no longer capable of
+									providing services and only emergency services/restoration
+									personnel remain in the facility.</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="facilityStatusListExtension" type="ListExtensionType" minOccurs="0"
+				maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Used to add extensions to specified Lists TODO: Reconcile what
+						the intent was here if the intent is known. Change to a ValueList type?
+						DARRELL - only issue I have is that we lose a Description element but a
+						practice may be to refer back to the URI for reference information (i.e.
+						manually).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="commentText" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EmergencyDepartmentStatusType">
+		<xs:annotation>
+			<xs:documentation> The container of all of the elements related to the emergency
+				department status. It describes the ability of this emergency department to treat
+				patients.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="emsTraffic" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Ability of this emergency department to receive patients via
+						emergency medical services.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="emsTrafficStatus" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Identifies the status of EMS traffic operations
+									TODO: Consider default list or ValueListType</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:enumeration value="Normal">
+										<xs:annotation>
+											<xs:documentation>Accepting all EMS
+												traffic.</xs:documentation>
+										</xs:annotation>
+									</xs:enumeration>
+									<xs:enumeration value="Advisory">
+										<xs:annotation>
+											<xs:documentation>Experiencing specific resource
+												limitations which may affect transport of some EMS
+												traffic.</xs:documentation>
+										</xs:annotation>
+									</xs:enumeration>
+									<xs:enumeration value="Closed">
+										<xs:annotation>
+											<xs:documentation>Requesting re-route of EMS traffic to
+												other facilities.</xs:documentation>
+										</xs:annotation>
+									</xs:enumeration>
+									<xs:enumeration value="NotApplicable">
+										<xs:annotation>
+											<xs:documentation>Not Applicable. This hospital does not
+												have an emergency department.</xs:documentation>
+										</xs:annotation>
+									</xs:enumeration>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="emsTrafficStatusListExtension" type="ListExtensionType"
+							minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Used to add extensions to specified
+									Lists</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="emsTrafficReason" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>It is used to report the contributing factor to an
+									EMSTraffic Status.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element ref="commentText" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--                                                      -->
+			<!-- Added elements from HAVE 1.0 schema -->
+			<!--                                                      -->
+			<xs:element name="emsCapacity" type="TriageCountType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The number of each triage patient type the hospital can
+						accept. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="emsCensus" type="TriageCountType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The number of each triage patient type the hospital currently
+						has.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="emsAmbulanceStatus" type="OffloadType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The container element to indicate the status and offload time
+						for road-based ambulance transport capabilities. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="emsAirTransportStatus" type="OffloadType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The container element to indicate the status and offload time
+						for air ambulance capabilities.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!--                                                      -->
+			<!-- Added elements from HAVE 1.0 schema -->
+			<!--                                                      -->
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="commentText" type="CommentType">
+		<xs:annotation>
+			<xs:documentation>REFACTOR - REMOVE this item and swap it for a comment element of type CommentType.
+
+CONFIRM: Cardinality (0...1)</xs:documentation>
+			<xs:documentation>One or more comments that indicate what is driving the status that is
+				indicated.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="TriageCountType">
+		<xs:annotation>
+			<xs:documentation>The number of each triage patient type the overall hospital currently
+				has.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="triageCodeListURN" type="xs:anyURI"
+				default="urn:oasis:names:tc:emergency:have:2.0:triagecolorcode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The name of a certified list maintained by the Community of
+						Interest (COI) for the value referenced. If no TriageCodeListURN is
+						specified, the default list should be used. Default Value: urn:
+						oasis:names:tc:emergency:have:1.0:triagecolorcode.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence>
+				<xs:element name="triageCode" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>The container element to specify the triage values and
+							their quantity TODO: Create a Triage Code Type that can handle this. Fix
+							the cardinality here too.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="triageCodeValue" minOccurs="1" maxOccurs="1">
+								<xs:annotation>
+									<xs:documentation>The list of values must be from the list
+										identified in TriageCodeListURN. Default Values - Red:
+										Number of victims with immediate needs - Yellow: Number of
+										victims with delayed needs - Green: Number of victims with
+										minor needs -Black: Number of deceased victims. If a
+										TriageCodeValue is specified, a TriageCountQuantity element
+										must be specified. DARRELL - changed cardinality to 0 or 1
+										(was 0 or n)</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:enumeration value="Red"/>
+										<xs:enumeration value="Yellow"/>
+										<xs:enumeration value="Green"/>
+										<xs:enumeration value="Black"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="triageCountQuantity" type="xs:integer" minOccurs="1"
+								maxOccurs="1">
+								<xs:annotation>
+									<xs:documentation>The integer value associated with the
+										TrageCodeValue. It refers to the preceeding TriageCodeValue
+										element. If a TriageCodeValue is specified, a
+										TriageCountQuantity element must be specified. DARRELL -
+										changed cardinality to 0 or 1 (was 0 or
+										n)</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+	<!--                                                  -->
+	<!-- Added types from HAVE 1.0 schema -->
+	<!--                                                  -->
+	<xs:simpleType name="StabilityType">
+		<xs:annotation>
+			<xs:documentation>Indication of stability - positive/improving, negative/deteriorating,
+				or neutral/stable</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="stable"/>
+			<xs:enumeration value="improving"/>
+			<xs:enumeration value="deteriorating"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="OffloadType">
+		<xs:annotation>
+			<xs:documentation>Indicator of offload times of ambulance capabilities. The time it
+				takes to transfer care of a patient to hospital staff, thereby freeing the transport
+				for assignment. Consider changing type to allow more than 2 modes: EMSOffloadStatus
+				{ OffloadStatusKind // defaultType or ValueKeyType OffloadStatusDelayed // boolean
+				OffloadMinutes </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="emsOffloadStatus" minOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Indicator of offload times of ambulance capabilities. DECIDE:
+						Change to a boolean (and rename to OffloadDelayed?)</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="Normal">
+							<xs:annotation>
+								<xs:documentation>The time required to offload a patient is
+									typical.</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="Delayed">
+							<xs:annotation>
+								<xs:documentation>The time required to offload a patient is longer
+									than typical. </xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="emsOffloadMinutes" type="xs:integer" minOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Average offload time in minutes.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrganizationInformationType">
+		<xs:annotation>
+			<xs:documentation>The container element for organization information elements.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="xpil:OrganisationDetailsType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="GeoLocationType">
+		<xs:annotation>
+			<xs:documentation>The container element for specifying the geo-coded address.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="GeoLocation" type="edxl-gsf:EDXLGeoLocationType"/>
+			<xs:element name="GeoPoliticalLocation" type="edxl-ct:EDXLGeoPoliticalLocationType"/>
+		</xs:choice>
+	</xs:complexType>
+	<!--                                                 	     -->
+	<!-- Added elements from HAVE 1.0 schema -->
+	<!--                                                      -->
+	<xs:complexType name="StatusType">
+		<xs:annotation>
+			<xs:documentation>EARLY ATTEMPT to create a simple (it isn't simple enough) way to
+				codify status. To me (Darrell) there needs to be a colour-code, a string value and
+				perhaps a numeric tier? The numeric is tough and perhaps a string set of values
+				could work. DELTA 26JUN2012 - changed from Sequence to All to remove order
+				preference. Changed cardinality for CommentText, Stability, Colour, and StatusLevel
+				to 1:0 (was 1:1)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isAvailable" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Is the Service available? True = yes, false =
+						no.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="colourStatus" minOccurs="0" type="ColourStatusType"/>
+			<xs:element minOccurs="0" name="comment" type="CommentType"/>
+			<xs:element minOccurs="0" name="stability" type="StabilityType">
+				<xs:annotation>
+					<xs:documentation>Indication that the Status is stable, improving, or deteriorating
+
+DECISION: does this add value? It felt like a good idea earlier (Darrell) but doesn't feel right now.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="statusLevel" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>DECISION: Remove for simplicity or clarify what this is?</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="DELETINGstatus" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>CONFIRM: REMOVAL of this unstructured "status" value.
+
+Human-readable value that indicates the
+						status.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="OBSOLETE_DefaultServiceValuesType">
+		<xs:annotation>
+			<xs:documentation>Are these obsolete? Did we need a ServiceValueKeyType?</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="edxl-ct:ValueType"> </xs:restriction>
+
+	</xs:simpleType>
+
+
+	<xs:simpleType name="OBSOLETE_DefaultServiceURIType">
+		<xs:restriction base="edxl-ct:ValueListURIType">
+			<xs:enumeration value="urn:oasis:names:tc:emergency:EDXL:HAVE:Defaults:HAVE1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="OBSOLETE_ServiceValueKeyType">
+		<xs:annotation>
+			<xs:documentation/>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="edxl-ct:ValueKeyType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="TimeRangeType">
+		<xs:annotation>
+			<xs:documentation>REPLACE with TimePeriodType (CT) Period of time - either for the
+				complete report or for current and forecast values (e.g. the "now" and the 48/72-hr
+				outlooks)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="startDateTime" type="xs:dateTime"/>
+			<xs:element name="endDateTime" type="xs:dateTime"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ServiceListItemType">
+		<xs:annotation>
+			<xs:documentation>Extensible Service Type - allows taxonomy (URI + value) type use and
+				tracks Availability, Status, and basic Capacity information.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="serviceTaxonomyKeyValue" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>The key value that identifies this Service in relation to the
+						Taxonomy (at ServiceList level). </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serviceName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>TODO: Get Multilingual name going here or should the
+						multi-lingual human-readable text be part of the Service
+						Taxonomy?</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serviceStatus" type="StatusType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Describes the status of the service beyond the basic available/unavailable. Further, it may cover the reasons for a service being unavailable.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serviceBedCapacity" type="BedCapacityType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>QUESTION: How detailed do we need to be here? This is
+						beginning to look and smell like an internal planning capability for a
+						hospital. Perhaps some of the detail belongs in an HL7 type of
+						system?</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="capacity" type="CapacityCodeStatusDefaultType">
+				<xs:annotation>
+					<xs:documentation>Indicates the capacity status of this particular service.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="staffingLevels" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Staffing Elements: * staffing type - valueListKeyType (with
+						Default) - intended to be very specific if needed (e.g.
+						pediatric.anasthesiologist) * staffing status * staffing shortfall (optional
+						- @# of staff positions down) TODO DARRELL:: * DoctorStaffing *
+						NurseStaffing AdminStaffing? YES - especially with specifics TODO: Staffing
+						element (0...n) - get staffing as list items StaffingNeeds (0...n) -
+						QUESTION: What about "staffing needs" - to stand up a centre or to get back
+						to operating state? </xs:documentation>
+					<xs:documentation/>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence maxOccurs="unbounded">
+						<xs:element name="staffingLevel" type="StaffingLevelType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="comment" type="CommentType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="futureServiceStates">
+				<xs:annotation>
+					<xs:documentation>Optional list of Service Capabilities in future for planned or
+						potential ramping up (or down) of capabilities to accomodate surge needs or
+						degraded capabilities. 0...n</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:all>
+						<xs:element name="reportingPeriod" type="edxl-ct:TimePeriodType"/>
+						<xs:element name="serviceStatus" type="StatusType"/>
+						<xs:element name="serviceCapacity" type="BedCapacityType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>QUESTION: How detailed do we need to be here? This
+									is beginning to look and smell like an internal planning
+									capability for a hospital. Perhaps some of the detail belongs in
+									an HL7 type of system?</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="capacity"
+							type="CapacityCodeStatusDefaultType">
+							<xs:annotation>
+								<xs:documentation>Indicates the capacity status of this particular service.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="staffingLevels" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Staffing Elements: * staffing type - valueListKeyType (with
+						Default) - intended to be very specific if needed (e.g.
+						pediatric.anasthesiologist) * staffing status * staffing shortfall (optional
+						- @# of staff positions down) TODO DARRELL:: * DoctorStaffing *
+						NurseStaffing AdminStaffing? YES - especially with specifics TODO: Staffing
+						element (0...n) - get staffing as list items StaffingNeeds (0...n) -
+						QUESTION: What about "staffing needs" - to stand up a centre or to get back
+						to operating state? </xs:documentation>
+								<xs:documentation/>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence maxOccurs="unbounded">
+									<xs:element name="staffingLevel" type="StaffingLevelType"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:all>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ResourceStatusType">
+		<xs:annotation>
+			<xs:documentation>TODO: REFACTOR to be a What do I have that I need to tell you about?
+				and What do I need?</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="resourceNeeds" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A list of resource(s) that are needed.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="resourceNeed" type="ResourceQuantityType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="resourceOffers" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>List of resource(s) that could be made available.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="resourceOffer" type="ResourceQuantityType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="colourStatus" type="ColourStatusType">
+				<xs:annotation>
+					<xs:documentation>Colour indicating the overall resource status of the facility.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DELETINGonHandInventory" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>CONFIRM: removal</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="inventoryDetail">
+							<xs:annotation>
+								<xs:documentation>Put definiton here</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element maxOccurs="unbounded" name="orderStatus">
+							<xs:annotation>
+								<xs:documentation>Put definiton here</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="resourcesInformationText">
+				<xs:annotation>
+					<xs:documentation>The type of resources and their status or
+						count.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0" ref="commentText"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="ClinicalStatusDefaultType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Normal">
+				<xs:annotation>
+					<xs:documentation>Hospital clinical resources are operating within normal
+						conditions.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Full">
+				<xs:annotation>
+					<xs:documentation>Hospital clinical resources are exceeded and acceptable care
+						cannot be provided to additional patients. Diversion or community surge
+						response is required.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ClinicalStatusType"> </xs:complexType>
+	<xs:complexType name="StaffingLevelType">
+		<xs:annotation>
+			<xs:documentation>Type for tracking Staffing Levels for a Facility. </xs:documentation>
+			<xs:documentation>DECISION: does concept meet our need? Is the shortfallLevel concept
+				clear enough or should it be changed to a staffingNeed element were 0 = OK, -ve =
+				quantity of ShortFall, and positive value indicates excess
+				capacity.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="staffingCode" type="edxl-ct:ValueKeyType"/>
+				<xs:element name="staffingCodeDefault" type="StaffingCodeDefaultType"/>
+			</xs:choice>
+			<xs:element name="status"/>
+			<xs:element name="shortfallLevel">
+				<xs:annotation>
+					<xs:documentation>The number of staff members required to meet a shortfall. 0
+						means no shortfall, -ve value means excess capacity, +ve is the number of
+						this staff type needed.</xs:documentation>
+					<xs:documentation>DISCUSS - is this simple enough? Should it be more number
+						centric (0 = OK, -ve means shortfall, +ve means
+						overstaffed)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ResourceQuantityType">
+		<xs:annotation>
+			<xs:documentation>Type for stating a quantity of a particular kind of resource.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="resourceKind" type="edxl-ct:ValueKeyType">
+				<xs:annotation>
+					<xs:documentation>The kind (type) of resource that the quantity refers to, provided from a controlled taxonomy (at ValueListURI).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="quantityAmount" type="xs:double">
+				<xs:annotation>
+					<xs:documentation>The quantity of the particular Resource.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="quantityUnitOfMeasure" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The unit of measure by which the quantityAmount is
+						calculated.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="comments" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ColourStatusType">
+		<xs:annotation>
+			<xs:documentation>Type that allows the structured use of colour-codes to portray state.</xs:documentation>
+			<xs:documentation>REVIEW: does this type allow for the colour-code concept to be portrayed? Is it usable for non-visual representation (believe yes)?</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="colourCode" type="edxl-ct:ValueKeyType"/>
+				<xs:element name="colourCodeDefault" type="ColourCodeDefaultType" minOccurs="1">
+					<xs:annotation>
+						<xs:documentation>Colour (text-based) of the status. By default triage
+							colours of green, yellow, orange, red, black are supported. TODO: CREATE
+							a new ColourCodeType to capture the full ISO 22324 data (colour,
+							meaning, ...)</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+			<xs:element minOccurs="0" name="colourDescription">
+				<xs:annotation>
+					<xs:documentation>Human-readable text describing the reason for selection of the particular colour-code.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CommentType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="language" type="xs:string"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="ColourCodeDefaultURI">
+		<xs:restriction base="edxl-ct:ValueListURIType">
+			<xs:enumeration value="urn:oasis:names:tc:emergency:EDXL:HAVE:2.0:Defaults:ColourCode"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ColourCodeDefaultValues">
+		<xs:restriction base="edxl-ct:ValueType">
+
+			<xs:enumeration value="red"/>
+			<xs:enumeration value="yellow"/>
+			<xs:enumeration value="green"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ColourCodeDefaultType">
+		<xs:complexContent>
+			<xs:extension base="edxl-ct:ValueKeyType"> </xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:simpleType name="StaffingCodeDefaultURI">
+		<xs:restriction base="edxl-ct:ValueListURIType">
+			<xs:enumeration value="urn:oasis:names:tc:emergency:EDXL:HAVE:2.0:Defaults:StaffingCode"
+			/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="StaffingCodeDefaultValues">
+		<xs:annotation>
+			<xs:documentation>TODO: Flesh out the staffing types.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="edxl-ct:ValueType">
+			<xs:enumeration value="doctor"/>
+			<xs:enumeration value="nurse"/>
+			<xs:enumeration value="admin"/>
+			<xs:enumeration value="operations"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="StaffingCodeDefaultType">
+		<xs:complexContent>
+			<xs:extension base="edxl-ct:ValueKeyType"> </xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:simpleType name="ServiceCodeDefaultValues">
+		<xs:annotation>
+			<xs:documentation>FLESH OUT Service types.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="edxl-ct:ValueType">
+			<xs:enumeration value="cardiology.STEMI"/>
+			<xs:enumeration value="Cardiology"/>
+			<xs:enumeration value="Cardiology.Invasive"/>
+			<xs:enumeration value="Cardiology.NonInvasive"/>
+			<xs:enumeration value="Dialysis"/>
+			<xs:enumeration value=""/>
+		</xs:restriction>
+
+	</xs:simpleType>
+	<xs:simpleType name="ServiceCodeDefaultURI">
+		<xs:restriction base="edxl-ct:ValueListURIType">
+			<xs:enumeration value="urn:oasis:names:tc:emergency:EDXL:HAVE:2.0:Defaults:Service"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ServiceCodeDefaultType">
+		<xs:complexContent>
+			<xs:extension base="edxl-ct:ValueKeyType"> </xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:simpleType name="CapacityCodeStatusDefaultValues">
+		<xs:annotation>
+			<xs:documentation>Capacity Codes - Inactive, Open, Full, Exceeded (HAVE 2.0 defaults) or another managed list</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="edxl-ct:ValueType">
+			<xs:enumeration value="Inactive"/>
+			<xs:enumeration value="Open"/>
+			<xs:enumeration value="Full"/>
+			<xs:enumeration value="Exceeded"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CapacityCodeStatusDefaultURI">
+		<xs:restriction base="edxl-ct:ValueListURIType">
+			<xs:enumeration
+				value="urn:oasis:names:tc:emergency:EDXL:HAVE:2.0:Defaults:CapacityCodeStatus"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="CapacityCodeStatusDefaultType">
+		<xs:complexContent>
+			<xs:extension base="edxl-ct:ValueKeyType"> </xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:simpleType name="SecurityStatusCodeDefaultValues">
+		<xs:annotation>
+			<xs:documentation>Default Security Values for facility.securityStatus</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="edxl-ct:ValueType">
+			<xs:enumeration value="Normal">
+				<xs:annotation>
+					<xs:documentation>REVIEW: (FROM HAVE1.0) The hospital is operating under routine security procedures.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Elevated">
+				<xs:annotation>
+					<xs:documentation>REVIEW: (FROM HAVE1.0) The hospital has activated increased security procedures (awareness, surveillance) due to a potential threat, or specific security related event i.e. increase in local threat level, VIP, bomb threat.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RestrictedAccess">
+				<xs:annotation>
+					<xs:documentation>REVIEW: (FROM HAVE1.0) Based on security needs, the hospital has activated procedures to allow access to the facility through a reduced number of controlled entrances.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Lockdown">
+				<xs:annotation>
+					<xs:documentation>REVIEW: (FROM HAVE1.0) Based on security needs, the hospital has activated procedures to control entry to the facility to authorized persons only.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Quarantine">
+				<xs:annotation>
+					<xs:documentation>REVIEW: (FROM HAVE1.0) Based on a public health emergency, the entry and exit of the facility is controlled by public health officials.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<!--
+                  value="Elevated" value="RestrictedAccess" value="Lockdown" value="Quarantine"
+            -->
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SecurityStatusCodeDefaultURI">
+		<xs:annotation>
+			<xs:documentation>DefaultSecurityStatusCode URI</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="edxl-ct:ValueListURIType">
+			<xs:enumeration
+				value="urn:oasis:names:tc:emergency:EDXL:HAVE:2.0:Defaults:SecurityStatus"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="SecurityStatusCodeDefaultType">
+		<xs:complexContent>
+			<xs:extension base="edxl-ct:ValueKeyType"> </xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

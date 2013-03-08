@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<have:HAVE xmlns:edxl-gsf="urn:oasis:names:tc:emergency:edxl:gsf:1.0" xmlns:have="urn:oasis:names:tc:emergency:edxl:have:2.0" xmlns:xpil="urn:oasis:names:tc:emergency:edxl:ciq:1.0:xpil" xmlns:xal="urn:oasis:names:tc:emergency:edxl:ciq:1.0:xal" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:n="urn:oasis:names:tc:emergency:edxl:ciq:1.0:xnl" xmlns:edxl-ct="urn:oasis:names:tc:emergency:edxl:ct:1.0" xmlns:ciqct="urn:oasis:names:tc:emergency:edxl:ciq:1.0:ct" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:emergency:edxl:have:2.0 file:edxl-have-v2.0-wd08.xsd">
+    <have:organizationInformation>
+        <n:OrganisationName>
+        </n:OrganisationName>
+        
+    </have:organizationInformation>
+    <have:facility>
+        <have:facilityInformation>
+            <have:facilityID>NB-SaintJohnRegional</have:facilityID>
+            <have:facilityName>Saint John Regional</have:facilityName>
+            <have:facilityGeoLocation>
+                <edxl-ct:EDXLGeoLocation>
+                    <gml:Point gml:id="NBSaintJohnRegional">
+                        <gml:pos>45.301785 -66.084793</gml:pos>
+                    </gml:Point>
+                </edxl-ct:EDXLGeoLocation>
+            </have:facilityGeoLocation>
+            <have:facilityDetails>
+                <n:OrganisationName>
+                </n:OrganisationName>
+                <xpil:Addresses>
+                    <xpil:Address>
+                        <xal:Country>
+                        <xal:NameElement>CANADA</xal:NameElement>
+                       
+                        </xal:Country>
+                        <xal:AdministrativeArea>
+                            <xal:NameElement>New Brunswick</xal:NameElement>
+                        </xal:AdministrativeArea>
+                        <xal:Locality>
+                            <xal:NameElement>Saint John</xal:NameElement>
+                        </xal:Locality>
+                     </xpil:Address>
+                </xpil:Addresses>
+            </have:facilityDetails>
+            <have:clinicalStatusDefault>Normal</have:clinicalStatusDefault>
+            <have:emergencyDepartmentStatus><have:emsCapacity><have:triageCode>
+                <have:triageCodeValue>Red</have:triageCodeValue>
+                <have:triageCountQuantity>2</have:triageCountQuantity>
+            </have:triageCode></have:emsCapacity></have:emergencyDepartmentStatus>
+        </have:facilityInformation>
+        <have:serviceList>
+            <have:taxonomyURI>
+            </have:taxonomyURI>
+            <have:taxonomyName>
+            </have:taxonomyName>
+            <have:serviceListItem>
+                <have:serviceTaxonomyKeyValue>trauma.level1.adult</have:serviceTaxonomyKeyValue>
+                <have:serviceName>Trauma Level 1 - Adult</have:serviceName>
+                <have:serviceStatus>
+                    <have:isAvailable>true</have:isAvailable>
+                    <have:colourStatus>
+                        <have:colourCodeDefault>
+                            <edxl-ct:ValueListURI>urn:oasis:names:tc:emergency:EDXL:HAVE:2.0:Defaults:ColourCode</edxl-ct:ValueListURI>
+                           <edxl-ct:Value>green</edxl-ct:Value>
+                        </have:colourCodeDefault>
+                    </have:colourStatus>
+                    <have:comment>Trauma levels are normal</have:comment>
+                    <have:stability>stable</have:stability>
+                </have:serviceStatus>
+                <have:serviceBedCapacity>
+                    <have:availableCount>6</have:availableCount>
+                    <have:baselineCount>8</have:baselineCount>
+                    <have:capacityNote/>
+                </have:serviceBedCapacity>
+            </have:serviceListItem>
+            <have:serviceListItem>
+                <have:serviceTaxonomyKeyValue>trauma.level1.pediatric</have:serviceTaxonomyKeyValue>
+                <have:serviceName>Trauma Level 1 - Pediatric</have:serviceName>
+            </have:serviceListItem>
+        </have:serviceList>
+        <have:facilityColourStatus>
+            <have:colourCode>
+                <edxl-ct:ValueListURI>urn:oasis:names:tc:emergency:EDXL:HAVE:2.0:Defaults:ColourCode</edxl-ct:ValueListURI>
+                <edxl-ct:Value>green</edxl-ct:Value>
+            </have:colourCode><have:colourDescription>...</have:colourDescription>
+        </have:facilityColourStatus>
+    </have:facility>
+    <have:facility>
+        <have:facilityInformation>
+            <have:facilityID>NB-Moncton</have:facilityID>
+            <have:facilityName>Moncton NB</have:facilityName>
+            <have:facilityGeoLocation>
+                <edxl-ct:EDXLGeoLocation>
+                    <gml:Point gml:id="NBMoncton">
+                        <gml:pos>46.104977 -64.805840</gml:pos>
+                    </gml:Point>
+                </edxl-ct:EDXLGeoLocation>
+            </have:facilityGeoLocation>
+            <have:facilityDetails>
+                <n:OrganisationName>
+                </n:OrganisationName>
+                
+            </have:facilityDetails>
+        </have:facilityInformation>
+        <have:serviceList>
+            <have:taxonomyURI>
+            </have:taxonomyURI>
+            <have:taxonomyName>
+            </have:taxonomyName>
+            <have:serviceListItem>
+                <have:serviceTaxonomyKeyValue>trauma.level2.adult</have:serviceTaxonomyKeyValue>
+                <have:serviceName>Trauma Level 2 - Adult</have:serviceName>
+                <have:serviceStatus>
+                    <have:isAvailable>true</have:isAvailable>
+                    <have:colourStatus>
+                        <have:colourCodeDefault>
+                            <edxl-ct:ValueListURI>urn:oasis:names:tc:emergency:EDXL:HAVE:2.0:Defaults:ColourCode</edxl-ct:ValueListURI>
+                            <edxl-ct:Value>yellow</edxl-ct:Value>
+                        </have:colourCodeDefault>
+                        <have:colourDescription>Trauma services are approaching capacity and incoming levels may exceed.</have:colourDescription>
+                    </have:colourStatus>
+                    <have:comment>Trauma levels are reaching capacity</have:comment>
+                    <have:stability>deteriorating</have:stability>
+                </have:serviceStatus>
+            </have:serviceListItem>
+            <have:serviceListItem>
+                <have:serviceTaxonomyKeyValue>trauma.level2.pediatric</have:serviceTaxonomyKeyValue>
+                <have:serviceName>Trauma Level 2 - Pediatric</have:serviceName>
+            </have:serviceListItem>
+        </have:serviceList>
+        <have:facilityColourStatus>
+            <have:colourCode>
+                <edxl-ct:ValueListURI>urn:oasis:names:tc:emergency:EDXL:HAVE:2.0:Defaults:ColourCode</edxl-ct:ValueListURI>
+                <edxl-ct:Value>yellow</edxl-ct:Value>
+            </have:colourCode><have:colourDescription>Norovirus outbreak has reduced staffing levels and increases ICU counts.</have:colourDescription>
+        </have:facilityColourStatus>
+    
+    </have:facility>
+    <have:facility>
+        <have:facilityInformation>
+            <have:facilityID>NB-Fredericton</have:facilityID>
+            <have:facilityName>Dr. Everett Chalmers Regional Hospital</have:facilityName>
+            <have:facilityGeoLocation>
+                <edxl-ct:EDXLGeoLocation>
+                    <gml:Point gml:id="NBFrederictonHospital">
+                        <gml:pos>45.939358 -66.654633</gml:pos>
+                    </gml:Point>
+                </edxl-ct:EDXLGeoLocation>
+            </have:facilityGeoLocation>
+            <have:facilityDetails>
+                <n:OrganisationName>
+                </n:OrganisationName>
+                <xpil:Addresses>
+                    <xpil:Address>
+                        <xal:Country>
+                            <xal:NameElement>CANADA</xal:NameElement>
+                            
+                        </xal:Country>
+                        <xal:AdministrativeArea>
+                            <xal:NameElement>New Brunswick</xal:NameElement>
+                        </xal:AdministrativeArea>
+                        <xal:Locality>
+                            <xal:NameElement>Fredericton</xal:NameElement>
+                        </xal:Locality>
+                    </xpil:Address>
+                </xpil:Addresses>
+            </have:facilityDetails>
+            <have:clinicalStatusDefault>Normal</have:clinicalStatusDefault>
+            <have:emergencyDepartmentStatus><have:emsCapacity><have:triageCode>
+                <have:triageCodeValue>Red</have:triageCodeValue>
+                <have:triageCountQuantity>2</have:triageCountQuantity>
+            </have:triageCode></have:emsCapacity></have:emergencyDepartmentStatus>
+        </have:facilityInformation>
+        <have:serviceList>
+            <have:taxonomyURI>
+            </have:taxonomyURI>
+            <have:taxonomyName>
+            </have:taxonomyName>
+            <have:serviceListItem>
+                <have:serviceTaxonomyKeyValue>trauma.level2.adult</have:serviceTaxonomyKeyValue>
+                <have:serviceName>Trauma Level 2 - Adult</have:serviceName>
+                <have:serviceStatus>
+                    <have:isAvailable>true</have:isAvailable>
+                    <have:colourStatus>
+                        <have:colourCodeDefault>
+                            <edxl-ct:ValueListURI>urn:oasis:names:tc:emergency:EDXL:HAVE:2.0:Defaults:ColourCode</edxl-ct:ValueListURI>
+                            <edxl-ct:Value>green</edxl-ct:Value>
+                        </have:colourCodeDefault>
+                    </have:colourStatus>
+                    <have:comment>Trauma levels are normal</have:comment>
+                    <have:stability>stable</have:stability>
+                </have:serviceStatus>
+                <have:serviceBedCapacity>
+                    <have:availableCount>6</have:availableCount>
+                    <have:baselineCount>8</have:baselineCount>
+                    <have:capacityNote/>
+                </have:serviceBedCapacity>
+            </have:serviceListItem>
+            <have:serviceListItem>
+                <have:serviceTaxonomyKeyValue>trauma.level2.pediatric</have:serviceTaxonomyKeyValue>
+                <have:serviceName>Trauma Level 2 - Pediatric</have:serviceName>
+                <have:serviceStatus>
+                    <have:isAvailable>true</have:isAvailable>
+                    <have:colourStatus>
+                        <have:colourCodeDefault>
+                            <edxl-ct:ValueListURI>urn:oasis:names:tc:emergency:EDXL:HAVE:2.0:Defaults:ColourCode</edxl-ct:ValueListURI>
+                            <edxl-ct:Value>green</edxl-ct:Value>
+                        </have:colourCodeDefault>
+                    </have:colourStatus>
+                    <have:comment>Trauma levels are normal</have:comment>
+                </have:serviceStatus>
+            </have:serviceListItem>
+        </have:serviceList>
+        <have:facilityColourStatus>
+            <have:colourCode>
+                <edxl-ct:ValueListURI>urn:oasis:names:tc:emergency:EDXL:HAVE:2.0:Defaults:ColourCode</edxl-ct:ValueListURI>
+                <edxl-ct:Value>green</edxl-ct:Value>
+            </have:colourCode><have:colourDescription>...</have:colourDescription>
+        </have:facilityColourStatus>
+    </have:facility>
+    
+    <have:facility>
+        <have:facilityInformation>
+            <have:facilityID>ME-CalaisRegional</have:facilityID>
+            <have:facilityName>Calais Regional Hospital</have:facilityName>
+            <have:facilityGeoLocation>
+                <edxl-ct:EDXLGeoLocation>
+                    <gml:Point gml:id="MECalaisRegionalHospital">
+                        <gml:pos>45.179604 -67.268234</gml:pos>
+                    </gml:Point>
+                </edxl-ct:EDXLGeoLocation>
+            </have:facilityGeoLocation>
+            <have:facilityDetails>
+                <n:OrganisationName>
+                </n:OrganisationName>
+                <xpil:Addresses>
+                    <xpil:Address>
+                        <xal:Country>
+                            <xal:NameElement>USA</xal:NameElement>
+                            
+                        </xal:Country>
+                        <xal:AdministrativeArea>
+                            <xal:NameElement>Maine</xal:NameElement>
+                        </xal:AdministrativeArea>
+                        <xal:Locality>
+                            <xal:NameElement>Calais</xal:NameElement>
+                        </xal:Locality>
+                    </xpil:Address>
+                </xpil:Addresses>
+            </have:facilityDetails>
+            
+            <have:clinicalStatusDefault>Normal</have:clinicalStatusDefault>
+            <have:emergencyDepartmentStatus><have:emsCapacity><have:triageCode>
+                <have:triageCodeValue>Red</have:triageCodeValue>
+                <have:triageCountQuantity>2</have:triageCountQuantity>
+            </have:triageCode></have:emsCapacity></have:emergencyDepartmentStatus>
+            
+        </have:facilityInformation>
+        <have:serviceList>
+            <have:taxonomyURI>
+            </have:taxonomyURI>
+            <have:taxonomyName>
+            </have:taxonomyName>
+            <have:serviceListItem>
+                <have:serviceTaxonomyKeyValue>trauma.level3.adult</have:serviceTaxonomyKeyValue>
+                <have:serviceName>Trauma Level 3 - Adult</have:serviceName>
+                <have:serviceStatus>
+                    <have:isAvailable>true</have:isAvailable>
+                    <have:colourStatus>
+                        <have:colourCodeDefault>
+                            <edxl-ct:ValueListURI>urn:oasis:names:tc:emergency:EDXL:HAVE:2.0:Defaults:ColourCode</edxl-ct:ValueListURI>
+                            <edxl-ct:Value>green</edxl-ct:Value>
+                        </have:colourCodeDefault>
+                    </have:colourStatus>
+                    <have:comment>Trauma levels are normal</have:comment>
+                    <have:stability>stable</have:stability>
+                </have:serviceStatus>
+                <have:serviceBedCapacity>
+                    <have:availableCount>6</have:availableCount>
+                    <have:baselineCount>8</have:baselineCount>
+                    <have:capacityNote/>
+                </have:serviceBedCapacity>
+            </have:serviceListItem>
+        </have:serviceList>
+        <have:facilityColourStatus>
+            <have:colourCode>
+                <edxl-ct:ValueListURI>urn:oasis:names:tc:emergency:EDXL:HAVE:2.0:Defaults:ColourCode</edxl-ct:ValueListURI>
+                <edxl-ct:Value>green</edxl-ct:Value>
+            </have:colourCode><have:colourDescription>...</have:colourDescription>
+        </have:facilityColourStatus>
+    </have:facility>
+    <have:facility>
+        <have:facilityInformation>
+            <have:facilityID>ME-DownEastCommunityHospital</have:facilityID>
+            <have:facilityName>Down East Community Hospital</have:facilityName>
+            <have:facilityGeoLocation>
+                <edxl-ct:EDXLGeoLocation>
+                    <gml:Point gml:id="MEDownEastCommunityHospital">
+                        <gml:pos>44.815426 -67.582352</gml:pos>
+                    </gml:Point>
+                </edxl-ct:EDXLGeoLocation>
+            </have:facilityGeoLocation>
+            <have:facilityDetails>
+                <n:OrganisationName>
+                </n:OrganisationName>
+                <xpil:Addresses>
+                    <xpil:Address>
+                        <xal:Country>
+                            <xal:NameElement>USA</xal:NameElement>
+                        </xal:Country>
+                        <xal:AdministrativeArea>
+                            <xal:NameElement>Maine</xal:NameElement>
+                        </xal:AdministrativeArea>
+                        <xal:Locality>
+                            <xal:NameElement>Down East</xal:NameElement>
+                        </xal:Locality>
+                    </xpil:Address>
+                </xpil:Addresses>
+            </have:facilityDetails>
+            <have:clinicalStatusDefault>Normal</have:clinicalStatusDefault>
+            <have:emergencyDepartmentStatus><have:emsCapacity><have:triageCode>
+                <have:triageCodeValue>Red</have:triageCodeValue>
+                <have:triageCountQuantity>2</have:triageCountQuantity>
+            </have:triageCode></have:emsCapacity></have:emergencyDepartmentStatus>
+        </have:facilityInformation>
+        <have:serviceList>
+            <have:taxonomyURI>
+            </have:taxonomyURI>
+            <have:taxonomyName>
+            </have:taxonomyName>
+            <have:serviceListItem>
+                <have:serviceTaxonomyKeyValue>trauma.level3.adult</have:serviceTaxonomyKeyValue>
+                <have:serviceName>Trauma Level 3 - Adult</have:serviceName>
+                <have:serviceStatus>
+                    <have:isAvailable>true</have:isAvailable>
+                    <have:colourStatus>
+                        <have:colourCodeDefault>
+                            <edxl-ct:ValueListURI>urn:oasis:names:tc:emergency:EDXL:HAVE:2.0:Defaults:ColourCode</edxl-ct:ValueListURI>
+                            <edxl-ct:Value>green</edxl-ct:Value>
+                        </have:colourCodeDefault>
+                    </have:colourStatus>
+                    <have:comment>Trauma levels are normal</have:comment>
+                    <have:stability>stable</have:stability>
+                </have:serviceStatus>
+                <have:serviceBedCapacity>
+                    <have:availableCount>6</have:availableCount>
+                    <have:baselineCount>8</have:baselineCount>
+                    <have:capacityNote/>
+                </have:serviceBedCapacity>
+            </have:serviceListItem>
+        </have:serviceList>
+        <have:facilityColourStatus>
+            <have:colourCode>
+                <edxl-ct:ValueListURI>urn:oasis:names:tc:emergency:EDXL:HAVE:2.0:Defaults:ColourCode</edxl-ct:ValueListURI>
+                <edxl-ct:Value>green</edxl-ct:Value>
+            </have:colourCode><have:colourDescription>...</have:colourDescription>
+        </have:facilityColourStatus>
+    </have:facility>
+    <have:facility>
+        <have:facilityInformation>
+            <have:facilityID>ME-EasternMaineMedicalCentre</have:facilityID>
+            <have:facilityName>Eastern Maine Medical Centre</have:facilityName>
+            <have:facilityGeoLocation>
+                <edxl-ct:EDXLGeoLocation>
+                    <gml:Point gml:id="MEEasternMaineMedicalCentre">
+                        <gml:pos>44.807873 -68.751991</gml:pos>
+                    </gml:Point>
+                </edxl-ct:EDXLGeoLocation>
+            </have:facilityGeoLocation>
+            <have:facilityDetails>
+                <n:OrganisationName>
+                </n:OrganisationName>
+                <xpil:Addresses>
+                    <xpil:Address>
+                        <xal:Country>
+                            <xal:NameElement>USA</xal:NameElement>
+                        </xal:Country>
+                        <xal:AdministrativeArea>
+                            <xal:NameElement>Maine</xal:NameElement>
+                        </xal:AdministrativeArea>
+                        <xal:Locality>
+                            <xal:NameElement>Bangor</xal:NameElement>
+                        </xal:Locality>
+                    </xpil:Address>
+                </xpil:Addresses>
+            </have:facilityDetails>
+            <have:clinicalStatusDefault>Normal</have:clinicalStatusDefault>
+            <have:emergencyDepartmentStatus><have:emsCapacity><have:triageCode>
+                <have:triageCodeValue>Red</have:triageCodeValue>
+                <have:triageCountQuantity>2</have:triageCountQuantity>
+            </have:triageCode></have:emsCapacity></have:emergencyDepartmentStatus>
+        </have:facilityInformation>
+        <have:serviceList>
+            <have:taxonomyURI>
+            </have:taxonomyURI>
+            <have:taxonomyName>
+            </have:taxonomyName>
+            <have:serviceListItem>
+                <have:serviceTaxonomyKeyValue>trauma.level1.adult</have:serviceTaxonomyKeyValue>
+                <have:serviceName>Trauma Level 1 - Adult</have:serviceName>
+                <have:serviceStatus>
+                    <have:isAvailable>true</have:isAvailable>
+                    <have:colourStatus>
+                        <have:colourCodeDefault>
+                            <edxl-ct:ValueListURI>urn:oasis:names:tc:emergency:EDXL:HAVE:2.0:Defaults:ColourCode</edxl-ct:ValueListURI>
+                            <edxl-ct:Value>green</edxl-ct:Value>
+                        </have:colourCodeDefault>
+                    </have:colourStatus>
+                    <have:comment>Trauma levels are normal</have:comment>
+                    <have:stability>stable</have:stability>
+                </have:serviceStatus>
+                <have:serviceBedCapacity>
+                    <have:availableCount>6</have:availableCount>
+                    <have:baselineCount>8</have:baselineCount>
+                    <have:capacityNote/>
+                </have:serviceBedCapacity>
+            </have:serviceListItem>
+            <have:serviceListItem>
+                <have:serviceTaxonomyKeyValue>trauma.level1.pediatric</have:serviceTaxonomyKeyValue>
+                <have:serviceName>Trauma Level 1 - Pediatric</have:serviceName>
+                <have:serviceStatus>
+                    <have:isAvailable>true</have:isAvailable>
+                    <have:colourStatus>
+                        <have:colourCodeDefault>
+                            <edxl-ct:ValueListURI>urn:oasis:names:tc:emergency:EDXL:HAVE:2.0:Defaults:ColourCode</edxl-ct:ValueListURI>
+                            <edxl-ct:Value>yellow</edxl-ct:Value>
+                        </have:colourCodeDefault>
+                    </have:colourStatus>
+                    <have:comment>Trauma levels are reaching capacity</have:comment>
+                    <have:stability>stable</have:stability>
+                </have:serviceStatus>
+                <have:serviceBedCapacity>
+                    <have:availableCount>2</have:availableCount>
+                    <have:baselineCount>8</have:baselineCount>
+                    <have:capacityNote/>
+                </have:serviceBedCapacity>
+            </have:serviceListItem>
+        </have:serviceList>
+        <have:facilityColourStatus>
+            <have:colourCode>
+                <edxl-ct:ValueListURI>urn:oasis:names:tc:emergency:EDXL:HAVE:2.0:Defaults:ColourCode</edxl-ct:ValueListURI>
+                <edxl-ct:Value>green</edxl-ct:Value>
+            </have:colourCode><have:colourDescription>...</have:colourDescription>
+        </have:facilityColourStatus>
+    </have:facility>
+    <have:facility>
+        <have:facilityInformation>
+            <have:facilityID>ME-StJosephHospital</have:facilityID>
+            <have:facilityName>Saint Joseph Hospital</have:facilityName>
+            <have:facilityGeoLocation>
+                <edxl-ct:EDXLGeoLocation>
+                    <gml:Point gml:id="MEStJosephHospital">
+                        <gml:pos>44.814709 -68.771454</gml:pos>
+                    </gml:Point>
+                </edxl-ct:EDXLGeoLocation>
+            </have:facilityGeoLocation>
+            <have:facilityDetails>
+                <n:OrganisationName>
+                </n:OrganisationName>
+                <xpil:Addresses>
+                    <xpil:Address>
+                        <xal:Country>
+                            <xal:NameElement>USA</xal:NameElement>
+                        </xal:Country>
+                        <xal:AdministrativeArea>
+                            <xal:NameElement>Maine</xal:NameElement>
+                        </xal:AdministrativeArea>
+                        <xal:Locality>
+                            <xal:NameElement>Bangor</xal:NameElement>
+                        </xal:Locality>
+                    </xpil:Address>
+                </xpil:Addresses>
+            </have:facilityDetails>
+            <have:clinicalStatusDefault>Normal</have:clinicalStatusDefault>
+            <have:emergencyDepartmentStatus><have:emsCapacity><have:triageCode>
+                <have:triageCodeValue>Red</have:triageCodeValue>
+                <have:triageCountQuantity>2</have:triageCountQuantity>
+            </have:triageCode></have:emsCapacity></have:emergencyDepartmentStatus>
+        </have:facilityInformation>
+        <have:serviceList>
+            <have:taxonomyURI>
+            </have:taxonomyURI>
+            <have:taxonomyName>
+            </have:taxonomyName>
+            <have:serviceListItem>
+                <have:serviceTaxonomyKeyValue>trauma.level2.adult</have:serviceTaxonomyKeyValue>
+                <have:serviceName>Trauma Level 2 - Adult</have:serviceName>
+                <have:serviceStatus>
+                    <have:isAvailable>true</have:isAvailable>
+                    <have:colourStatus>
+                        <have:colourCodeDefault>
+                            <edxl-ct:ValueListURI>urn:oasis:names:tc:emergency:EDXL:HAVE:2.0:Defaults:ColourCode</edxl-ct:ValueListURI>
+                            <edxl-ct:Value>green</edxl-ct:Value>
+                        </have:colourCodeDefault>
+                    </have:colourStatus>
+                    <have:comment>Trauma levels are normal</have:comment>
+                    <have:stability>stable</have:stability>
+                </have:serviceStatus>
+                <have:serviceBedCapacity>
+                    <have:availableCount>6</have:availableCount>
+                    <have:baselineCount>8</have:baselineCount>
+                    <have:capacityNote/>
+                </have:serviceBedCapacity>
+            </have:serviceListItem>
+            <have:serviceListItem>
+                <have:serviceTaxonomyKeyValue>trauma.level2.pediatric</have:serviceTaxonomyKeyValue>
+                <have:serviceName>Trauma Level 2 - Pediatric</have:serviceName>
+                <have:serviceStatus>
+                    <have:isAvailable>true</have:isAvailable>
+                    <have:colourStatus>
+                        <have:colourCodeDefault>
+                            <edxl-ct:ValueListURI>urn:oasis:names:tc:emergency:EDXL:HAVE:2.0:Defaults:ColourCode</edxl-ct:ValueListURI>
+                            <edxl-ct:Value>red</edxl-ct:Value>
+                        </have:colourCodeDefault>
+                    </have:colourStatus>
+                    <have:comment>Trauma levels are at capacity</have:comment>
+                    <have:stability>stable</have:stability>
+                </have:serviceStatus>
+                <have:serviceBedCapacity>
+                    <have:availableCount>6</have:availableCount>
+                    <have:baselineCount>6</have:baselineCount>
+                    <have:capacityNote/>
+                </have:serviceBedCapacity>
+            </have:serviceListItem>
+        </have:serviceList>
+        <have:facilityColourStatus>
+            <have:colourCode>
+                <edxl-ct:ValueListURI>urn:oasis:names:tc:emergency:EDXL:HAVE:2.0:Defaults:ColourCode</edxl-ct:ValueListURI>
+                <edxl-ct:Value>green</edxl-ct:Value>
+            </have:colourCode><have:colourDescription>...</have:colourDescription>
+        </have:facilityColourStatus>
+    </have:facility>
+</have:HAVE>
